@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "SaveItem";
+}
+<br />
+
+@using (Ajax.BeginForm("SaveItem",new AjaxOptions {HttpMethod="POST",InsertionMode=InsertionMode.InsertAfter,LoadingElementDuration=300,
+    LoadingElementId ="loading",UpdateTargetId="list"}))
+{
+    <input type="text" placeholder="Ad" class="form-control" name="Ad"/>
+    <input type="text" placeholder="Soyad" class="form-control" name="Soyad" />
+    <input type="text" placeholder="Yaş" class="form-control" name="Yas" />
+    <br />
+    <input type="submit" name="Kayıt" class="btn btn-default"/>
+
+    
+
+}
+<hr />
+<ul id="list" class="list-group">
+    <li id="loading" class="list-group-item list-group-item-success" style="display:none">Yükleniyor</li>
+</ul>
+

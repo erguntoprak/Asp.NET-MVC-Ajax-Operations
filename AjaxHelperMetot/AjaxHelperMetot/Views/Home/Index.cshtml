@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<br />
+<br />
+<a class="btn btn-success" href="">Veri Gönder</a>
+@Ajax.ActionLink("VeriGonder", "LoadData", null, new AjaxOptions() { HttpMethod="GET",UpdateTargetId="list",InsertionMode=InsertionMode.Replace,LoadingElementDuration=300,LoadingElementId="yukleniyor"}, new { @class="btn btn-success" })
+
+<div id="yukleniyor" class="alert alert-success" style="display:none">Yükleniyor...</div>
+<ul id="list" class="list-group">
+ 
+</ul>

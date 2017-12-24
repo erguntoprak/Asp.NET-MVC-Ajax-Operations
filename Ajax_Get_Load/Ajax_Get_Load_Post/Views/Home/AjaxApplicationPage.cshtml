@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "AjaxApplicationPage";
+}
+<br />
+<br />
+<button type="submit" class="btn btn-success" id="tikla">Verileri Ajax ile Getir</button>
+<br />
+<input type="text" name="yas" id="yas" placeholder="Yaş ekle" />
+<br />
+<button type="submit" id="tikla2" class="btn btn-success">Veri Ekle ve Göster</button>
+<div id="loading" class="alert alert-warning" style="display:none">yükleniyor</div>
+<ul id="list" class="list-group"></ul>
+<script>
+    $("#tikla").click(function () {
+        $.ajax({
+            method: "GET",
+            url: "/Home/VeriGetir",
+            beforeSend: function () {
+                $("#loading").show(300);
+            }
+        }).done(function (d) {
+            $("#list").html(d);
+
+        }).always(function () {
+            $("#loading").hide(300);
+        }).fail(function () {
+            alert("Hata");
+        });
+
+    });
+    $("#tikla2").click(function () {
+        var yasAl = $("#yas").val();
+        $.ajax({
+            method: "POST",
+            url: "/Home/VeriGonder",
+            beforeSend: function () {
+                $("list").empty();
+                $("#loading").show(300);
+            },
+            data:{yas:yasAl}
+        }).done(function (d) {
+            $("#list").html(d);
+
+        }).always(function () {
+            $("#loading").hide(300);
+        }).fail(function () {
+            alert("Hata");
+        });
+
+    });
+
+</script>

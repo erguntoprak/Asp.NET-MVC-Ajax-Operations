@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "AjaxJsonVerilerIndex";
+}
+<hr />
+<br />
+<button class="btn btn-success" id="tikla">VeriGetir</button>
+<ul id="list" class="list-group">
+    <li>
+        <ul id="aile" class="list-group">
+        </ul>
+    </li>
+</ul>
+<script>
+    $("#tikla").click(function () {
+        $.ajax({
+            method: "GET",
+            url: "/Home/AjaxJsonVerilerDonme",
+            beforeSend: function () {
+                $("#list").empty();
+            }
+        }).done(function (liste) {
+            var li = $("<li class='list-group-item'></li>");
+            li.html(liste.Ad);
+            $("#list").append(li);
+            var li = $("<li class='list-group-item'></li>");
+            li.html(liste.Soyad);
+            $("#list").append(li);
+            for (var i in liste.Aile) {
+                var li = $("<li class='list-group-item'></li>");
+                li.html(liste.Aile[i].AnneAdSoyad);
+                $("#list").append(li);
+            }
+        }
+
+            );
+
+    });
+
+</script>

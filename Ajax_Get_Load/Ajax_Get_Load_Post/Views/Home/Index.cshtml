@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<hr />
+<button type="submit" id="verileriGetir" class="btn btn-danger">Veri Getir</button>
+<input type="text" name="yas" id="yas" placeholder="Yaş ekle" />
+<button type="submit" id="veriGonder" class="btn btn-success">Veri Ekle ve Göster</button>
+<button type="submit" class="btn btn-default" id="loadButton">Load Metotu ile getir</button>
+<div id="loading" class="alert alert-warning" style="display:none">yükleniyor</div>
+<ul id="list" class="list-group">
+</ul>
+<script>
+    $("#verileriGetir").click(function () {
+        $("#loading").show(300, function () {
+            $.get("/Home/VeriGetir", function (data) {
+                $("#list").html(data);
+              
+            }).fail(function () {
+                alert("Hata oluştu.")
+                }
+            ).always(function () {
+                $("#loading").hide(300);
+                });
+        })
+
+    });
+    $("#veriGonder").click(function () {
+        $("#list").empty();
+        var veri = $("#yas").val();
+        //Post metotu ile get metotu arasında http protokol varkı vardır ikiside aynı işlemleri yapabilir sadece bazı özellikleri farklıdır.Internetten araştırılıp öğrenebilinir.
+        $.post("/Home/VeriGonder", { yas: veri }, function (data) {
+            $("#list").html(data);
+            $("#loading").hide(300);
+        });
+
+    });
+
+    $("#loadButton").click(function () {
+        $("#loading").show(300, function () {
+            //Veri gönderirsen post veri göndermezsen get metotu olarak görüyor.
+            $("#list").load("/Home/VeriGetir", function () {
+                $("#loading").hide(300);
+            });
+        });
+        
+    });
+</script>
